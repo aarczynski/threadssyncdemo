@@ -1,0 +1,1 @@
+server.tomcat.threads.max: 200 # default value, just for demo clarity
