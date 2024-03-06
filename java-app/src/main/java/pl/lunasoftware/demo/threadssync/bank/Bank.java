@@ -29,6 +29,17 @@ public class Bank {
         log.info("Transferred {} from account {} to account {}", amount, from, to);
     }
 
+    public void slowTransfer(String from, String to, BigDecimal amount) {
+        log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
+        synchronized (this) {
+            Account fromAccount = findAccount(from);
+            Account toAccount = findAccount(to);
+            accountRepository.save(fromAccount.withdraw(amount));
+            accountRepository.save(toAccount.receive(amount));
+            log.info("Transferred {} from account {} to account {}", amount, from, to);
+        }
+    }
+
     public void transferWithDeadlock(String from, String to, BigDecimal amount) {
         log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
         synchronized (from.intern()) {

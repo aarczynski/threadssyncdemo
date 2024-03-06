@@ -24,6 +24,11 @@ public class BankController {
         bank.transferWithRace(request.from(), request.to(), request.amount());
     }
 
+    @PostMapping(value = "/transfers", params = "slow=true")
+    public void transferSlow(@Valid @RequestBody TransferRequestDto request) {
+        bank.slowTransfer(request.from(), request.to(), request.amount());
+    }
+
     @PostMapping(value = "/transfers", params = "deadlock=true")
     public void transferWithDeadlock(@Valid @RequestBody TransferRequestDto request) {
         bank.transferWithDeadlock(request.from(), request.to(), request.amount());

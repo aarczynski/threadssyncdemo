@@ -85,6 +85,7 @@ public class BankTransferSimulation extends Simulation {
             return "";
         }
         return switch (System.getProperty("mode")) {
+            case "slow" -> "?slow=true";
             case "race" -> "?race=true";
             case "deadlock" -> "?deadlock=true";
             default -> "";
