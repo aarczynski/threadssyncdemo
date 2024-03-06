@@ -42,7 +42,7 @@ Run following command:
 ```shell
 ./gradlew :load-generator:gatlingRun-pl.lunasoftware.demo.threadssync.loadtest.BankTransferSimulation -Dmode=race    
 ```
-This runs a Gatling load test sending 50 RPS to transfer random amount of monet between two randomly picked accounts.
+This runs a Gatling load test sending 50 RPS for half a minute to transfer random amount of monet between two randomly picked accounts.
 Executed code can be found in [BankController#transferWithRace](java-app/src/main/java/pl/lunasoftware/demo/threadssync/bank/BankController.java#L22)
 Executed code uses no threads synchronisation, leading to a race condition. Verify accounts balance after the load test finishes by sending the same
 ```
@@ -77,7 +77,7 @@ Run following command:
 ```shell
 ./gradlew :load-generator:gatlingRun-pl.lunasoftware.demo.threadssync.loadtest.BankTransferSimulation -Dmode=slow    
 ```
-This runs a Gatling load test sending again 50 RPS to transfer random amount of monet between two randomly picked accounts.
+This runs a Gatling load test sending again 50 RPS for half a minute to transfer random amount of monet between two randomly picked accounts.
 Executed code can be found in [BankController#transferSlow](java-app/src/main/java/pl/lunasoftware/demo/threadssync/bank/BankController.java#L28)
 Executed code uses naive threads synchronisation, where only one bank transfer can be executed simultaneously, leading to a severe performance issues. The application state is not corrupted, though.
 Verify accounts balance after the load test finishes by sending the same
@@ -113,7 +113,7 @@ Run following command:
 ```shell
 ./gradlew :load-generator:gatlingRun-pl.lunasoftware.demo.threadssync.loadtest.BankTransferSimulation -Dmode=deadlock    
 ```
-This runs a Gatling load test sending once again 50 RPS to transfer random amount of monet between two randomly picked accounts.
+This runs a Gatling load test sending once again 50 RPS for half a minute to transfer random amount of monet between two randomly picked accounts.
 Executed code can be found in [BankController#transferWithDeadlock](java-app/src/main/java/pl/lunasoftware/demo/threadssync/bank/BankController.java#L33)
 Executed code uses synchronization on accounts involved in a given bank transfer. Nested `synchronized` blocks may lead to a deadlock. With a bit of luck the application will stop working after a few (or several dozen) seconds. It will stuck and will be unresponsive to any HTTP requests due to depleted Tomcat pool thread. 200 threads will wait for each other.
 You will see many timed-out requests in Gatling report:
@@ -125,7 +125,7 @@ Run following command:
 ```shell
 ./gradlew :load-generator:gatlingRun-pl.lunasoftware.demo.threadssync.loadtest.BankTransferSimulation   
 ```
-This runs a Gatling load test sending yet again 50 RPS to transfer random amount of monet between two randomly picked accounts.
+This runs a Gatling load test sending yet again 50 RPS for half a minute to transfer random amount of monet between two randomly picked accounts.
 Executed code can be found in [BankController#transfer](java-app/src/main/java/pl/lunasoftware/demo/threadssync/bank/BankController.java#L39)
 Executed code uses synchronization on accounts involved in a given bank transfer. Nested `synchronized` blocks are acquired and released in an ordered fashion, avoiding a deadlock condition.
 You can verify correct application state by running the same

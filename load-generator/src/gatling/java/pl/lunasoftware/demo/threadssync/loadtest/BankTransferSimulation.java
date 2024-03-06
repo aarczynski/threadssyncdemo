@@ -24,12 +24,12 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 public class BankTransferSimulation extends Simulation {
 
     private static final int RPS = 50;
-    private static final Duration A_MINUTE = Duration.ofSeconds(60);
+    private static final Duration HALF_A_MINUTE = Duration.ofSeconds(30);
     private final BankAccountNumberSupplier bankAccountNumberSupplier = new BankAccountNumberSupplier();
 
     public BankTransferSimulation() {
         this.setUp(employeesDataScenario()
-                .injectOpen(constantUsersPerSec(RPS).during(A_MINUTE))
+                .injectOpen(constantUsersPerSec(RPS).during(HALF_A_MINUTE))
                 .andThen(verifyTotalAssetsBalance().injectOpen(atOnceUsers(1))))
                 .protocols(httpProtocolBuilder());
     }
