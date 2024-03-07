@@ -1,4 +1,4 @@
-## Modules:
+# Modules:
 * **java-app** - a simple Demo Bank app to demonstrate common multithreading issues. It uses in memory `ArrayList` and `Thread.sleep(...)` to simulate DataBase operations
 * **load-generator** - a module running pre-defined load tests using Gatling.
 
@@ -158,4 +158,4 @@ The response times are also much better:
 
 ## Hints
 Results of the simulations greatly depend on you machine performance and generated load by the Gatling.
-You can change sent RPS in [[BankTransferSimulation](load-generator/src/gatling/java/pl/lunasoftware/demo/threadssync/loadtest/BankTransferSimulation.java#26).
+You can change sent RPS in [BankTransferSimulation](load-generator/src/gatling/java/pl/lunasoftware/demo/threadssync/loadtest/BankTransferSimulation.java#L26).
