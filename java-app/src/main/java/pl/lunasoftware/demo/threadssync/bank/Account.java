@@ -5,7 +5,7 @@ import java.util.Objects;
 
 class Account {
     private final String accountNumber;
-    private BigDecimal balance;
+    private final BigDecimal balance;
 
     public Account(String accountNumber, BigDecimal balance) {
         this.accountNumber = accountNumber;
@@ -20,7 +20,7 @@ class Account {
         return new Account(accountNumber, balance.subtract(amount));
     }
 
-    public String getAccountNumber() {
+    String getAccountNumber() {
         return accountNumber;
     }
 
