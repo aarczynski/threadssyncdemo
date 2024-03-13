@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AccountRepository {
     private final List<Account> accounts;
 
-    public AccountRepository() {
+    AccountRepository() {
         this.accounts = new ArrayList<>(List.of(
                 new Account("1", BigDecimal.valueOf(1000)),
                 new Account("2", BigDecimal.valueOf(1000)),

@@ -11,36 +11,36 @@ import pl.lunasoftware.demo.threadssync.bank.dto.TransferRequestDto;
 
 @RestController
 @RequestMapping("/api/v1")
-public class BankController {
+class BankController {
 
     private final Bank bank;
 
-    public BankController(Bank bank) {
+    BankController(Bank bank) {
         this.bank = bank;
     }
 
     @PostMapping(value = "/transfers", params = "race=true")
-    public void transferWithRace(@Valid @RequestBody TransferRequestDto request) {
+    void transferWithRace(@Valid @RequestBody TransferRequestDto request) {
         bank.transferWithRace(request.from(), request.to(), request.amount());
     }
 
     @PostMapping(value = "/transfers", params = "slow=true")
-    public void transferSlow(@Valid @RequestBody TransferRequestDto request) {
+    void transferSlow(@Valid @RequestBody TransferRequestDto request) {
         bank.slowTransfer(request.from(), request.to(), request.amount());
     }
 
     @PostMapping(value = "/transfers", params = "deadlock=true")
-    public void transferWithDeadlock(@Valid @RequestBody TransferRequestDto request) {
+    void transferWithDeadlock(@Valid @RequestBody TransferRequestDto request) {
         bank.transferWithDeadlock(request.from(), request.to(), request.amount());
     }
 
     @PostMapping("/transfers")
-    public void transfer(@Valid @RequestBody TransferRequestDto request) {
+    void transfer(@Valid @RequestBody TransferRequestDto request) {
         bank.transfer(request.from(), request.to(), request.amount());
     }
 
     @GetMapping("/total-assets")
-    public BalanceDto getTotalAssets() {
+    BalanceDto getTotalAssets() {
         return bank.getTotalBalance();
     }
 }

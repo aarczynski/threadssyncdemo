@@ -7,7 +7,7 @@ class Account {
     private final String accountNumber;
     private final BigDecimal balance;
 
-    public Account(String accountNumber, BigDecimal balance) {
+    Account(String accountNumber, BigDecimal balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }

@@ -11,16 +11,16 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
-public class Bank {
+class Bank {
     private static final Logger log = LoggerFactory.getLogger(Bank.class);
 
     private final AccountRepository accountRepository;
 
-    public Bank(AccountRepository accountRepository) {
+    Bank(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    public void transferWithRace(String from, String to, BigDecimal amount) {
+    void transferWithRace(String from, String to, BigDecimal amount) {
         log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
         Account fromAccount = findAccount(from);
         Account toAccount = findAccount(to);
@@ -29,7 +29,7 @@ public class Bank {
         log.info("Transferred {} from account {} to account {}", amount, from, to);
     }
 
-    public void slowTransfer(String from, String to, BigDecimal amount) {
+    void slowTransfer(String from, String to, BigDecimal amount) {
         log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
         synchronized (this) {
             Account fromAccount = findAccount(from);
@@ -40,7 +40,7 @@ public class Bank {
         }
     }
 
-    public void transferWithDeadlock(String from, String to, BigDecimal amount) {
+    void transferWithDeadlock(String from, String to, BigDecimal amount) {
         log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
         synchronized (from.intern()) {
             synchronized (to.intern()) {
@@ -53,7 +53,7 @@ public class Bank {
         }
     }
 
-    public void transfer(String from, String to, BigDecimal amount) {
+    void transfer(String from, String to, BigDecimal amount) {
         log.info("Transfer of {} from account {} to account {} requested", amount, from, to);
         String lock1 = from.compareTo(to) < 0 ? from.intern() : to.intern();
         String lock2 = from.compareTo(to) >= 0 ? from.intern() : to.intern();
@@ -68,7 +68,7 @@ public class Bank {
         }
     }
 
-    public BalanceDto getTotalBalance() {
+    BalanceDto getTotalBalance() {
         List<Account> accounts = accountRepository.findAll();
 
         BigDecimal total = accounts.stream()
